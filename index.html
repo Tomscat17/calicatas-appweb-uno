@@ -20,28 +20,10 @@
   </div>
 
   <div id="pantalla-calicata" style="display:none;">
-    <h2>Registro de Calicata</h2>
-
-    <!-- Sección de fotos -->
-    <div class="foto-seccion">
-      <label>Calicata + Cartel: <input type="file" id="input-cartel" accept="image/*" onchange="previewImagen(event, 'img-cartel')"/></label>
-      <img id="img-cartel" class="preview" />
-    </div>
-    <div class="foto-seccion">
-      <label>Calicata + Camino: <input type="file" id="input-camino" accept="image/*" onchange="previewImagen(event, 'img-camino')"/></label>
-      <img id="img-camino" class="preview" />
-    </div>
-    <div class="foto-seccion">
-      <label>Calicata: <input type="file" id="input-calicata" accept="image/*" onchange="previewImagen(event, 'img-calicata')"/></label>
-      <img id="img-calicata" class="preview" />
-    </div>
-    <div class="foto-seccion">
-      <label>Calicata sin regla: <input type="file" id="input-sinregla" accept="image/*" onchange="previewImagen(event, 'img-sinregla')"/></label>
-      <img id="img-sinregla" class="preview" />
-    </div>
+    
 
     <hr>
-    <h3>Datos Generales de la Calicata</h3>
+    <h2>Datos Generales de la Calicata</h2>
 
     <div class="form-group">
         <label>Fecha de ensayo: <span id="fecha-ensayo">Se completará al guardar</span></label>
@@ -112,10 +94,22 @@
       <h3>Observaciones</h3>
     </div>
  
+    <h3>Registro de Calicata</h3>
+
+    <!-- Sección de fotos -->
+    <div class="foto-seccion">
+      <label>Calicata + Cartel + regla: <input type="file" id="input-cartel" accept="image/*" onchange="previewImagen(event, 'img-cartel')"/></label>
+      <img id="img-cartel" class="preview" />
+    </div>
+    <div class="foto-seccion">
+      <label>Calicata + Camino: <input type="file" id="input-camino" accept="image/*" onchange="previewImagen(event, 'img-camino')"/></label>
+      <img id="img-camino" class="preview" />
+    </div>
 
 
     <!-- Botones -->
     <button onclick="guardarCalicata()">Guardar Calicata</button>
+    <button type="button" onclick="agregarNuevaEstratigrafia()">Agregar nueva estratigrafía</button>
     <button onclick="iniciarNuevoProyecto()">Iniciar Nuevo Proyecto</button>
   </div>
 

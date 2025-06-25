@@ -1,5 +1,6 @@
 let datosProyecto = null;
 let contadorCalicatas = 1;
+let calicatasGuardadas = [];
 
 document.getElementById('form-proyecto').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -30,9 +31,71 @@ function guardarCalicata() {
   const fechaHoy = new Date().toLocaleDateString();
   document.getElementById('fecha-ensayo').textContent = fechaHoy;
 
+  // Guardamos los datos de la calicata en un objeto
+  const calicata = {
+    nombre: document.getElementById('nombre-calicata').textContent,
+    dm: document.getElementById('dm-calicata').value,
+    lado: document.getElementById('lado-calicata').value,
+    napaAgua: document.getElementById('napa-agua').value,
+    espesorCapa: document.getElementById('espesor-capa').value,
+    confeccion: document.getElementById('confeccion-calicata').value,
+    forma: document.getElementById('forma-confeccion').value,
+    fotos: {
+      cartel: document.getElementById('img-cartel').src,
+      calicata: document.getElementById('img-calicata').src
+    },
+    estratos: [] // Array para los estratos
+  };
+
+  // Recorremos los estratos (hasta 3) y guardamos sus datos
+  const cantidadEstratos = parseInt(document.getElementById('cantidad-estratos').value);
+
+  for (let i = 1; i <= cantidadEstratos; i++) {
+    const estrato = {
+      profundidadDesde: document.getElementById(`desde-estrato${i}`).value,
+      profundidadHasta: document.getElementById(`hasta-estrato${i}`).value,
+      granulometriaTotal: {
+        tmax: document.getElementById(`tmax-estrato${i}`).value,
+        bolones: document.getElementById(`bolones-estrato${i}`).value
+      },
+      granulometriaFraccionMenor: {
+        grava: document.getElementById(`grava-estrato${i}`).value,
+        arena: document.getElementById(`arena-estrato${i}`).value,
+        fino: document.getElementById(`fino-estrato${i}`).value
+      },
+      tipoSueloFino: document.getElementById(`tipo-suelo-estrato${i}`).value,
+      olor: document.getElementById(`olor-estrato${i}`).value,
+      graduacion: document.getElementById(`graduacion-estrato${i}`).value,
+      plasticidad: document.getElementById(`plasticidad-estrato${i}`).value,
+      formaParticulas: document.getElementById(`forma-particulas-estrato${i}`).value,
+      humedad: document.getElementById(`humedad-estrato${i}`).value,
+      compacidad: document.getElementById(`compacidad-estrato${i}`).value,
+      consistencia: document.getElementById(`consistencia-estrato${i}`).value,
+      estructura: document.getElementById(`estructura-estrato${i}`).value,
+      estructuraEspecificar: document.getElementById(`otros-estructura-estrato${i}`).value,
+      cementacion: document.getElementById(`cementacion-estrato${i}`).value,
+      origen: document.getElementById(`origen-estrato${i}`).value,
+      origenEspecificar: document.getElementById(`otros-origen-estrato${i}`).value,
+      materiaOrganica: document.getElementById(`materia-organica-estrato${i}`).value,
+      nombreLocal: document.getElementById(`nombre-local-estrato${i}`).value,
+      observacion: document.getElementById(`observacion-estrato${i}`).value // Observación de cada estrato
+    };
+
+    // Guardamos el estrato en el array de estratos
+    calicata.estratos.push(estrato);
+  }
+
+  // Mostrar un mensaje con el nombre de la calicata guardada
+  alert(`✅ Calicata ${calicata.nombre} guardada.`);
+
   document.getElementById('nombre-calicata').textContent = `Calicata ${contadorCalicatas}`;
   const calicataActual = contadorCalicatas;
   contadorCalicatas++;
+
+  // Mostrar los datos guardados en consola para ver el array
+  console.log(calicatasGuardadas);
+
+  // Limpiar imágenes (no los datos de la calicata)
 
   alert('✅ Calicata guardada (simulado). Aquí se guardarán los datos e imágenes.');
   const idsInput = ['input-cartel', 'input-camino', 'input-calicata', 'input-sinregla'];
@@ -288,4 +351,40 @@ function toggleEspecificar(tipo, i) {
   } else {
     inputEspecificar.style.display = "none"; // Oculta el campo
   }
+}
+
+function agregarNuevaEstratigrafia() {
+
+  const confirmar = confirm("¿Estás seguro que deseas agregar una nueva estratigrafía? Esto reiniciará todos los datos actuales.");
+  if (!confirmar) return; // Si no confirma, no reinicia los campos
+
+  // Reiniciamos los campos de la calicata
+  document.getElementById('dm-calicata').value = '';
+  document.getElementById('lado-calicata').value = '';
+  document.getElementById('napa-agua').value = '';
+  document.getElementById('espesor-capa').value = '';
+  document.getElementById('confeccion-calicata').value = '';
+  document.getElementById('forma-confeccion').value = '';
+
+  
+  
+  // Aquí puedes limpiar los estratos de manera similar
+  const estratosContainer = document.getElementById('estratos-container');
+  estratosContainer.innerHTML = ''; // Limpiar los estratos previos
+
+  // Limpiar el contenedor de observaciones
+  const observacionesContainer = document.getElementById('observaciones-container');
+  observacionesContainer.innerHTML = '<h3>Observaciones</h3>';
+
+  // Limpiar las imágenes (reestablecer las vistas previas de las fotos)
+  const idsInput = ['input-cartel', 'input-camino', 'input-calicata'];
+  const idsImg = ['img-cartel', 'img-camino', 'img-calicata'];
+  
+  idsInput.forEach(id => document.getElementById(id).value = ''); // Limpiar inputs de imagen
+  idsImg.forEach(id => {
+    document.getElementById(id).src = ''; // Limpiar vistas previas de imagen
+    document.getElementById(id).style.display = 'none'; // Ocultar las imágenes (para evitar que sigan viéndose)
+  });
+
+  
 }
