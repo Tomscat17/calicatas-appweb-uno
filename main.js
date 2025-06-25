@@ -363,20 +363,11 @@ function agregarNuevaEstratigrafia() {
   document.getElementById('lado-calicata').value = '';
   document.getElementById('napa-agua').value = '';
   document.getElementById('espesor-capa').value = '';
-  document.getElementById('confeccion-calicata').value = '';
+  document.getElementById('confeccion-calicata').value = '';  
   document.getElementById('forma-confeccion').value = '';
 
   
   
-  // Aquí puedes limpiar los estratos de manera similar
-  const estratosContainer = document.getElementById('estratos-container');
-  estratosContainer.innerHTML = ''; // Limpiar los estratos previos
-
-  // Limpiar el contenedor de observaciones
-  const observacionesContainer = document.getElementById('observaciones-container');
-  observacionesContainer.innerHTML = '<h3>Observaciones</h3>';
-
-  // Limpiar las imágenes (reestablecer las vistas previas de las fotos)
   const idsInput = ['input-cartel', 'input-camino', 'input-calicata'];
   const idsImg = ['img-cartel', 'img-camino', 'img-calicata'];
   
@@ -386,5 +377,23 @@ function agregarNuevaEstratigrafia() {
     document.getElementById(id).style.display = 'none'; // Ocultar las imágenes (para evitar que sigan viéndose)
   });
 
+  // Reiniciar los campos de estratos
+  const estratosContainer = document.getElementById('estratos-container');
+  estratosContainer.innerHTML = ''; // Limpiar los estratos previos
+
+  // Limpiar el contenedor de observaciones
+  const observacionesContainer = document.getElementById('observaciones-container');
+  observacionesContainer.innerHTML = '<h3>Observaciones</h3>';
+
+  
+
   
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+// Asignamos el evento "click" al botón "Agregar nueva estratigrafía"
+  document.getElementById('btn-agregar-estratigrafia').addEventListener('click', function() {
+    agregarNuevaEstratigrafia(); // Llamamos a la función cuando se hace clic
+  });
+});
